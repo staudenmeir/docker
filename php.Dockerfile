@@ -14,7 +14,6 @@ RUN apt-get -y install gpg &&  \
     pecl install sqlsrv pdo_sqlsrv && \
     docker-php-ext-enable sqlsrv pdo_sqlsrv
 
-RUN pecl install xdebug && \
-    docker-php-ext-enable xdebug
+RUN pecl install xdebug
 
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
