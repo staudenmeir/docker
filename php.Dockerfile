@@ -3,9 +3,16 @@ ARG version
 FROM php:${version}-cli
 
 RUN apt-get update && \
-    apt-get install -y libpq-dev unzip && \
-    docker-php-ext-install pdo_mysql pdo_pgsql
+    apt-get install -y unzip
 
+# MySQL
+RUN docker-php-ext-install pdo_mysql
+
+# PostgreSQL
+RUN apt-get install -y libpq-dev && \
+    docker-php-ext-install pdo_pgsql
+
+# SQL Server
 RUN apt-get -y install gpg &&  \
     curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor -o /usr/share/keyrings/microsoft-prod.gpg && \
     curl https://packages.microsoft.com/config/debian/12/prod.list | tee /etc/apt/sources.list.d/mssql-release.list && \
