@@ -28,12 +28,7 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Pull image if exists
-        run: docker pull ${{ env.IMAGE }}:${{ matrix.version }}
-        continue-on-error: true
-        id: pull
-      - name: Build and push image if not pulled
+      - name: Build and push image
         run: |
-          docker build --build-arg version=${{ matrix.version }} -t ${{ env.IMAGE }}:${{ matrix.version }} - < php.Dockerfile
+          docker build --build-arg VERSION=${{ matrix.version }} -t ${{ env.IMAGE }}:${{ matrix.version }} - < php.Dockerfile
           docker push ${{ env.IMAGE }}:${{ matrix.version }}
-        if: steps.pull.outcome != 'success'

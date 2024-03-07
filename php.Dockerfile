@@ -1,6 +1,6 @@
-ARG version
+ARG VERSION
 
-FROM php:${version}-cli
+FROM php:${VERSION}-cli
 
 RUN apt-get update && \
     apt-get install -y unzip
