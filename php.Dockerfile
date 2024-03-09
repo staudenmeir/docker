@@ -42,6 +42,18 @@ RUN apt-get install -y gpg &&  \
     pecl install sqlsrv pdo_sqlsrv && \
     docker-php-ext-enable sqlsrv pdo_sqlsrv
 
+# Oracle
+RUN apt-get install -y libaio1 libaio-dev && \
+    mkdir /opt/oracle && \
+    curl -o '/opt/oracle/basiclite.zip' 'https://download.oracle.com/otn_software/linux/instantclient/instantclient-basiclite-linuxx64.zip' && \
+    unzip -o '/opt/oracle/basiclite.zip' -d /opt/oracle && \
+    curl -o '/opt/oracle/sdk.zip' 'https://download.oracle.com/otn_software/linux/instantclient/instantclient-sdk-linuxx64.zip' && \
+    unzip -o '/opt/oracle/sdk.zip' -d /opt/oracle && \
+    mv /opt/oracle/instantclient_* /opt/oracle/instantclient && \
+    ln -sf /opt/oracle/instantclient/*.so* /usr/lib/ && \
+    echo 'instantclient,/opt/oracle/instantclient/' | pecl install oci8 && \
+    docker-php-ext-enable oci8
+
 # Firebird
 COPY --from=pdo_firebird /php-src/ext/pdo_firebird/modules/pdo_firebird.so pdo_firebird.so
 
