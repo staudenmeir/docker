@@ -28,7 +28,7 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build and push image
-        run: |
-          docker build --build-arg VERSION=${{ matrix.version }} -t ${{ env.IMAGE }}:${{ matrix.version }} - < php.Dockerfile
-          docker push ${{ env.IMAGE }}:${{ matrix.version }}
+      - name: Build and tag image
+        run: docker build --build-arg VERSION=${{ matrix.version }} -t ${{ env.IMAGE }}:${{ matrix.version }} - < php.Dockerfile
+      - name: Push image
+        run: docker push ${{ env.IMAGE }}:${{ matrix.version }}
