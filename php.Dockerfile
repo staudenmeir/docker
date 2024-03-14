@@ -26,7 +26,7 @@ FROM php:${VERSION}-cli
 RUN apt-get update && \
     apt-get install -y unzip
 
-## MySQL
+# MySQL
 RUN docker-php-ext-install pdo_mysql
 
 # PostgreSQL
