@@ -31,8 +31,5 @@ jobs:
       - name: Build and tag image
         run: docker build --build-arg VERSION=${{ matrix.version }} -t ${{ env.IMAGE }}:${{ matrix.version }} - < php.Dockerfile
         if: matrix.version != '8.4'
-      - name: Build and tag PHP 8.4 image
-        run: docker build -t ${{ env.IMAGE }}:${{ matrix.version }} - < php8.4.Dockerfile
-        if: matrix.version == '8.4'
       - name: Push image
         run: docker push ${{ env.IMAGE }}:${{ matrix.version }}
