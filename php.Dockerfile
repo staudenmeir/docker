@@ -62,6 +62,6 @@ RUN mv pdo_firebird.so $(php-config --extension-dir) && \
     apt install -y firebird-dev && \
     docker-php-ext-enable pdo_firebird
 
-RUN pecl install xdebug-3.4.0beta1
+RUN pecl install xdebug
 
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
